@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container div {
+      margin: 0 20px;
+      padding: 10px;
+      height: 400px;
+      background-color: antiquewhite;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .header li {
+      margin: 10px 0;
+      padding: 10px 30px;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+
+    .context {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .context li {
+      opacity: 0;
+    }
+
+    .context li.actived {
+      opacity: 1;
+    }
+
+    .actived {
+      background-color: #f00;
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="container">
+  <div id="box1">
+    <ul class="header">
+      <li class="actived">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+
+    <ul class="context">
+      <li class="actived">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+
+  <div id="box2">
+    <ul class="header">
+      <li class="actived">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+
+    <ul class="context">
+      <li class="actived">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+
+  <script>
+    // 构造器模式
+    function Tab (selector) {
+      this.selector = document.querySelector(selector)
+      this.header = this.selector.querySelectorAll(".header li")
+      this.contextItems = this.selector.querySelectorAll(".context li")
+
+      this.change()
+    }
+
+    // 原型模式
+    Tab.prototype.change = function () {
+      this.header.forEach(ele => {
+        ele.addEventListener("click", () => {
+          
+        })
+      })
+    }
+
+    const tab1 = new Tab("#box1")
+
+    console.log(tab1)
+  </script>
+</body>
+</html>
