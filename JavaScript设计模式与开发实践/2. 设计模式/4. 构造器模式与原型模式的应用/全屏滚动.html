@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .scroll-block {
+      height: 100vh;
+      background-color: #f2f2f2;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-container">
+    <div class="scroll-block">
+      <h1>滚动块 1</h1>
+      <p>这是滚动块 1 的内容。</p>
+    </div>
+    <div class="scroll-block">
+      <h1>滚动块 2</h1>
+      <p>这是滚动块 2 的内容。</p>
+    </div>
+    <div class="scroll-block">
+      <h1>滚动块 3</h1>
+      <p>这是滚动块 3 的内容。</p>
+    </div>
+  </div>
+
+  <script>
+    let lastExecution = 0;
+    const throttleTime = 800;
+    let canScroll = true;
+
+    function handleScroll(event) {
+      event.preventDefault();
+      const now = new Date().getTime();
+
+      if (!canScroll || (now - lastExecution) < throttleTime) {
+        return;
+      }
+
+      canScroll = false;
+      lastExecution = now;
+      var scrollDirection = event.deltaY > 0 ? 1 : -1;
+      var windowHeight = window.innerHeight;
+      var targetPosition = window.pageYOffset + (windowHeight * scrollDirection);
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+
+      setTimeout(() => {
+        canScroll = true;
+      }, 800);
+    }
+
+    window.addEventListener('wheel', handleScroll, { passive: false });
+  </script>
+</body>
+</html>
