@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,6 +57,7 @@
     }
   </style>
 </head>
+
 <body class="container">
   <div id="box1">
     <ul class="header">
@@ -99,9 +101,9 @@
 
   <script>
     // 构造器模式
-    function Tab (selector) {
+    function Tab(selector) {
       this.selector = document.querySelector(selector)
-      this.header = this.selector.querySelectorAll(".header li")
+      this.headerItems = this.selector.querySelectorAll(".header li")
       this.contextItems = this.selector.querySelectorAll(".context li")
 
       this.change()
@@ -109,16 +111,23 @@
 
     // 原型模式
     Tab.prototype.change = function () {
-      this.header.forEach(ele => {
+      this.headerItems.forEach((ele, eleIndex) => {
         ele.addEventListener("click", () => {
-          
+          this.headerItems.forEach((item, index) => {
+            item.classList.remove("actived")
+            this.contextItems[index].classList.remove("actived")
+          })
+          ele.classList.add("actived")
+          this.contextItems[eleIndex].classList.add("actived")
         })
       })
     }
 
     const tab1 = new Tab("#box1")
+    const tab2 = new Tab("#box2")
 
-    console.log(tab1)
+    console.log(tab1, tab2)
   </script>
 </body>
+
 </html>
