@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const singleton = (function () {
+      let instance = null;
+
+      function user (name) {
+        this.name = name;
+      }
+
+      return function (name) {
+        // 只有第一次执行才创建实例
+        if (!instance) {
+          // 创建实例
+          return user(name);
+        }
+        return instance;
+      }
+    })();
+
+    // singleton() === singleton() true 是同一个实例
+
+    // ES6中
+    class Singleton {
+      constructor (name) {
+        if (!Singleton.instance) {
+          this.name = name;
+          Singleton.instance = this;
+        }
+
+        return Singleton.instance;
+      }
+    }
+
+    console.log(new Singleton('张三') === new Singleton('李四')) // true
+  </script>
+</body>
+</html>
