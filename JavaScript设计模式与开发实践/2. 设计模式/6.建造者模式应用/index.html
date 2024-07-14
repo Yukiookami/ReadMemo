@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class NavBar {
+      init () {
+        console.log('初始化导航栏');                     
+      }
+
+      getData () {
+        console.log('获取导航栏数据');
+      }
+
+      render () {
+        console.log('渲染导航栏');
+      }
+    }
+
+    class List {
+      init () {
+        console.log('初始化列表');                     
+      }
+
+      getData () {
+        console.log('获取列表数据');
+      }
+
+      render () {
+        console.log('渲染列表');
+      }
+    }
+
+    class Creator {
+      startBuild(builder) {
+        builder.init();
+        builder.getData();
+        builder.render();
+      }
+    }
+
+    // 建造者
+    const creator = new Creator();
+    creator.startBuild(new NavBar());
+    creator.startBuild(new List());
+  </script>
+</body>
+</html>
