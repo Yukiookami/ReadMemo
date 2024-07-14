@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Factory(role) {
+        function User(role, pages) {
+          this.role = role;
+          this.pages = pages;
+        }
+        switch (role) {
+          case "superAdmin":
+            return new User("superAdmin", [
+              "home",
+              "use-manage",
+              "right-manger",
+              "news-manger",
+            ]);
+          case "admin":
+            return new User("admin", ["home", "use-manage", "right-manger"]);
+          case "user":
+            return new User("editor", ["home", "use-manage"]);
+          default:
+            throw new Error("参数错误, 可选参数: superAdmin, admin, user");
+        }
+      }
+
+      const user = Factory("superAdmin");
+      console.log(user);
+    </script>
+  </body>
+</html>
