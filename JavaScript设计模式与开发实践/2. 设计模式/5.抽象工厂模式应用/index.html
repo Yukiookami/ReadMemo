@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class User {
+      constructor(name, role, pages) {
+        this.name = name;
+        this.role = role;
+        this.pages = pages;
+      }
+
+      welcome () {
+        console.log(`欢迎${this.name}进入系统`);
+      }
+
+      dataShow () {
+        throw new Error('子类必须实现这个方法');
+      }
+    }
+
+    class SuperAdmin extends User {
+      constructor(name) {
+        super(name, 'superAdmin', ['home', 'use-manage', 'right-manger', 'news-manger']);
+      }
+
+      dataShow () {
+        console.log('超级管理员数据展示');
+      }
+
+      addRight () {
+        console.log('添加权限');
+      }
+
+      addUser () {
+        console.log('添加用户');
+      }
+    }
+
+    class Admin extends User {
+      constructor(name) {
+        super(name, 'admin', ['home', 'use-manage', 'news-manger']);
+      }
+
+      dataShow () {
+        console.log('管理员数据展示');
+      }
+
+      addUser () {
+        console.log('添加用户');
+      }
+    }
+
+    class Editor extends User {
+      constructor(name) {
+        super(name, 'editor', ['home', 'news-manager']);
+      }
+
+      dataShow () {
+        console.log('编辑数据展示');
+      }
+
+      addNews () {
+        console.log('添加新闻');
+      }
+    }
+
+    function getAbsUserFactory (role) {
+      switch (role) {
+        case 'superAdmin':
+          return SuperAdmin;
+        case 'admin':
+          return Admin;
+        case 'editor':
+          return Editor;
+        default:
+          throw new Error('参数错误, 可选参数: superAdmin, admin, editor');
+      }
+    }
+
+    let UserFactory = getAbsUserFactory('superAdmin');
+    let user = new UserFactory('张三');
+    user.welcome();
+    user.dataShow();
+    user.addRight();
+    user.addUser();
+
+    let UserFactory2 = getAbsUserFactory('admin');
+    let user2 = new UserFactory2('李四');
+    user2.welcome();
+    user2.dataShow();
+    user2.addUser();
+
+    let UserFactory3 = getAbsUserFactory('editor');
+    let user3 = new UserFactory3('王五');
+    user3.welcome();
+    user3.dataShow();
+    user3.addNews();
+  </script>
+</body>
+</html>
