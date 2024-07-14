@@ -101,7 +101,8 @@
 
   <script>
     // 构造器模式
-    function Tab(selector, type) {
+    class Tab {
+    constructor (selector, type) {
       this.selector = document.querySelector(selector)
       this.headerItems = this.selector.querySelectorAll(".header li")
       this.contextItems = this.selector.querySelectorAll(".context li")
@@ -111,7 +112,7 @@
     }
 
     // 原型模式
-    Tab.prototype.change = function () {
+    change () {
       this.headerItems.forEach((ele, eleIndex) => {
         ele.addEventListener(this.type ?? "click", () => {
           this.headerItems.forEach((item, index) => {
@@ -122,6 +123,7 @@
           this.contextItems[eleIndex].classList.add("actived")
         })
       })
+    }
     }
 
     const tab1 = new Tab("#box1")
