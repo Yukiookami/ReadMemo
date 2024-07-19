@@ -6,6 +6,8 @@
   <title>Document</title>
 </head>
 <body>
+  <button id="uvCount">UV，PV统计</button>
+
   <script>
     // 装饰器模式
 
@@ -32,18 +34,39 @@
       }
     }
 
-    function test () {
-      console.log("原函数执行")
-      return 2222
+    function log() {
+      console.log('统计uv，pv');
     }
 
-    const test1 = test.before(() => {
-      console.log("前置函数执行")
-    }).after(() => {
-      console.log("后置函数执行")
-    })
+    function render() {
+      console.log('渲染页面');
+    }
 
-    console.log(test1(), "原函数执行结果")
-  </script>
+    // 主线任务是render，支线是log
+    render = render.before(log);
+
+    uvCount.onclick = function () {
+      render();
+    } 
+
+    function ajax (url, method, params) {
+      console.log('请求数据', url, method, params);
+    }
+
+    // 需要传token的情况下
+    ajaxUseToken = ajax.before(function (url, method, params) {
+      params.token = 'token';
+    });
+    
+    // 有token
+    ajaxUseToken('www.baidu.com', 'get', {
+      name: 123
+    });
+
+    // 无token
+    ajax('www.baidu.com', 'get', {
+      name: 123
+    });
+  </script> 
 </body>
 </html>
