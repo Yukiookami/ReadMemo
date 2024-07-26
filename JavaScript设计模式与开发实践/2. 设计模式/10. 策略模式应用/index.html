@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 不使用策略模式的情况下
+    const calBonus = (level, salary) => {
+      if (level === 'S') {
+        return salary * 4;
+      }
+      if (level === 'A') {
+        return salary * 3;
+      }
+      if (level === 'B') {
+        return salary * 2;
+      }
+    }
+
+    console.log(calBonus('S', 20000));
+    console.log(calBonus('A', 10000));
+    console.log(calBonus('B', 5000));
+
+    // 使用策略模式
+    let strategry = {
+      'S': (salary) => {
+        return salary * 4;
+      },
+      'A': (salary) => {
+        return salary * 3;
+      },
+      'B': (salary) => {
+        return salary * 2;
+      }
+    }
+
+    const calBonus2 = (level, salary) => {
+      return strategry[level](salary);
+    }
+
+    console.log(calBonus2('S', 20000));
+    console.log(calBonus2('A', 10000));
+    console.log(calBonus2('B', 5000));
+  </script>
+</body>
+</html>

@@ -33,3 +33,31 @@ call 和 apply 都是立即调用函数，不同的是参数传递方式：call 
 bind 用于创建新的函数，可以预设 this 值和初始参数，调用时再传入其他参数，但不会立即执行函数。
 
 ---
+
+策略模式可以替代绝大部分if else，switch case，可以让代码更加清晰，易于维护。（当策略和函数传参相关时记得用箭头函数返回这个函数，不然会导致在定义时就直接执行）
+
+```javascript
+const func = (arr = "") => {
+  console.log(arr)
+}
+
+// 会立即执行
+const a = {
+  'A': func(arr),
+  'B': func(arr),
+}
+
+// 不会立即执行
+const b = {
+  'A': () => func(arr),
+  'B': () => func(arr),
+}
+
+// 同样不会立即执行, 但是没有传参
+const c = {
+  'A': func,
+  'B': func,
+}
+```
+
+---
