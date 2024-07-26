@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <input value="" oninput="inputChange(event)"></input>
+
+  <script>
+    const app = document.getElementById('app')
+
+    let vueObj = {
+      data: null
+    }
+
+    let proxy = new Proxy(vueObj, {
+      get: (target, key) => {
+        return target[key]
+      },
+      set: (target, key, value) => {
+        if (key === 'data') {
+          console.log('更新视图');
+          app.innerHTML = value
+        }
+
+        target[key] = value
+      }
+    })
+
+    const inputChange = (e) => {
+      proxy.data = e.target.value
+    }
+  </script>
+</body>
+</html>

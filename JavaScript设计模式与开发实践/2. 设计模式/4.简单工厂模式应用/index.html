@@ -12,21 +12,16 @@
           this.role = role;
           this.pages = pages;
         }
-        switch (role) {
-          case "superAdmin":
-            return new User("superAdmin", [
-              "home",
-              "use-manage",
-              "right-manger",
-              "news-manger",
-            ]);
-          case "admin":
-            return new User("admin", ["home", "use-manage", "right-manger"]);
-          case "user":
-            return new User("editor", ["home", "use-manage"]);
-          default:
-            throw new Error("参数错误, 可选参数: superAdmin, admin, user");
-        }
+
+        // 策略模式
+        const user = {
+          superAdmin: new User("superAdmin", ["home","use-manage","right-manger","news-manger"]),
+          admin: new User("admin", ["home", "use-manage", "right-manger"]),
+          user: new User("editor", ["home", "use-manage"]),
+          default: new Error("参数错误, 可选参数: superAdmin, admin, user"),
+        };
+
+        return user[role] || user["default"];
       }
 
       const user = Factory("superAdmin");

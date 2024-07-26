@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 代理模式
+    class Star {
+      play () {
+        console.log('好戏开演！');
+      }
+    }
+
+    class ProxyStar {
+      constructor () {
+        this.superStar = new Star();
+      }
+
+      talk (price) {
+        if (price > 10000) {
+          this.superStar.play();
+        } else {
+          console.log('价格太低，不演！');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

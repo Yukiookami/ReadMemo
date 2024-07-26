@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const start = {
+      name: '张三',
+      age: 25,
+      workprice: 10000
+    }
+
+    let proxy = new Proxy(start, {
+      get: function (target, key) {
+        if (key === 'workprice') {
+          console.log('访问了');
+          return target[key];
+        }
+      },
+      set: function (target, key, value) {
+        if (key === 'workprice') {
+          if (value > 10000) {
+            console.log('好戏开演！');
+          } else {
+            console.log('价格太低，不演！');
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
