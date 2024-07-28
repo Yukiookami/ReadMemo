@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left {
+      width: 200px;
+      background-color: #f0f0f0;
+    }
+
+    .left ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .left ul li {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .right {
+      flex: 1;
+      background-color: #f0f0f0;
+    }
+
+    .section {
+      width: 100%;
+      height: 100%;
+      background-color: #00d9ff;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">路径</header>
+  <div class="box">
+    <div class="left">
+      <ul>
+        <li>首页</li>
+        <li>新闻</li>
+        <li>关于</li>
+      </ul>
+    </div>
+
+    <div class="right">
+      <div class="section"></div>
+    </div>
+  </div>
+
+  <script>
+    class Subject {
+      constructor () {
+        this.observers = []
+      }
+
+      add (observer) {
+        this.observers.push(observer)
+      }
+
+      notify (data) {
+        this.observers.forEach(observer => {
+          observer.update(data)
+        })
+      }
+    }
+
+    class Observer {
+      constructor (name) {
+        this.ele = document.querySelector(name)
+      }
+
+      update (data) {
+        console.log('观察者更新', this.name)
+        this.ele.innerHTML = data
+      }
+    }
+
+    // 被观察者，左侧导航栏
+    const subject = new Subject()
+    // 观察者，观察右侧内容区域
+    const observer1 = new Observer('.section')
+    // 观察者，观察右侧内容区域
+    const observer2 = new Observer('.header')
+
+    subject.add(observer1)
+    subject.add(observer2) // 观察者模式的优点，即使添加了一个header也不需要修改原有代码
+
+    let oli = document.querySelectorAll('.left ul li')
+
+    oli.forEach((item, index) => {
+      item.addEventListener('click', (e) => {
+        console.log('点击了', item.innerHTML)
+        subject.notify(item.innerHTML)
+      })
+    })
+  </script>
+</body>
+</html>

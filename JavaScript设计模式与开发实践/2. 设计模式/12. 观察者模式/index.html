@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class SubObj {
+      constructor () {
+        // 未来的观察者
+        this.observers = []
+      }
+
+      // 添加观察者
+      add (observer) {
+        this.observers.push(observer)
+      }
+
+      // 通知观察者
+      notify () {
+        this.observers.forEach(observer => {
+          console.log('通知观察者')
+          console.log(observer)
+          observer.update()
+        })
+      }
+
+      // 移除观察者
+      remove (observer) {
+        console.log('移除观察者', observer)
+        this.observers = this.observers.filter(item => item !== observer)
+      }
+    }
+
+    class Observer {
+      constructor (name) {
+        this.name = name
+      }
+
+      update () {
+        console.log('观察者更新', this.name)
+      }
+    }
+
+    const sub = new SubObj()
+    const observer1 = new Observer("观察者1")
+    const observer2 = new Observer("观察者2")
+
+    sub.add(observer1)
+    sub.add(observer2)
+
+    // 移除观察者
+    sub.remove(observer1)
+
+    // 通知观察者
+    setTimeout(() => {
+      sub.notify()
+    }, 2000)
+  </script>
+</body>
+</html>
