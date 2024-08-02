@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 发布订阅模式
+    
+    // 在简单发布订阅模式的基础上，实现事件细分，订阅者可以根据事件名称订阅，发布者可以根据事件名称发布
+    // 发布 publish
+    // 订阅 subscribe
+    // 中央调度中心
+    const PubSub = {
+      message: {},
+      // 发布
+      publish(type) {
+        if (!this.message[type]) {
+          return;
+        }
+        this.message[type].forEach((callBack) => {
+          callBack();
+        });
+      },
+      // 订阅
+      subscribe(type, callBack) {
+        if (!this.message[type]) {
+          this.message[type] = [callBack];
+        } else {
+          this.message[type].push(callBack);
+        }
+      },
+    }
+
+    const testA = () => {
+      console.log('testA');
+    }
+    
+    const testB = () => {
+      console.log('testB');
+    }
+
+    PubSub.subscribe("A", testA);
+    PubSub.subscribe("B", testB);
+
+    PubSub.publish("A");
+  </script>
+</body>
+</html>

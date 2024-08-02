@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 简单的发布订阅模式
+    
+    // 给中央调度中心添加函数，发布者只要向中央调度中心添加函数，订阅者就可以收到消息，发布者和订阅者相互并不知道对方的存在
+    // 发布 publish
+    // 订阅 subscribe
+    // 中央调度中心
+    const PubSub = {
+      list: [],
+      // 发布
+      publish() {
+        this.list.forEach((callBack) => {
+          callBack();
+        });
+      },
+      // 订阅
+      subscribe(callBack) {
+        this.list.push(callBack);
+      },
+    }
+
+    const testA = () => {
+      console.log('testA');
+    }
+    
+    const testB = () => {
+      console.log('testB');
+    }
+
+    PubSub.subscribe(testA);
+    PubSub.subscribe(testB);
+
+    PubSub.publish();
+  </script>
+</body>
+</html>
