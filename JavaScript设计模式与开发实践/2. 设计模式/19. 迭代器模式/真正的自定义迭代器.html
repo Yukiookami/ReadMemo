@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const obj = {
+      code: '123',
+      name: '张三',
+      list: [1, 2, 3],
+      [Symbol.iterator]: function () {
+        let index = 0
+        let _this = this
+        return {
+          next: function () {
+            return {
+              value: _this.list[index],
+              done: index++ >= _this.list.length
+            }
+          }
+        }
+      }
+    }
+
+    const it = obj[Symbol.iterator]()
+    console.log(it.next()) // {value: 1, done: false}
+    console.log(it.next()) // {value: 2, done: false}
+    console.log(it.next()) // {value: 3, done: false}
+    console.log(it.next()) // {value: undefined, done: true}
+
+    for (let item of obj) {
+      console.log(item) // 1 2 3
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 迭代器模式
+    // 场景：实现一个迭代器，遍历数组
+    
+    const skuEach = function (arr, callback) {
+      for (let i = 0; i < arr.length; i++) {
+        callback(arr[i], i)
+      }
+    }
+
+    const arr = [1, 2, 3, 4, 5]
+
+    skuEach(arr, function (item, index) {
+      console.log(item, index)
+    })
+
+    // ES6迭代器 Iterator
+    // Array Map, set, String, argument, NodeList 中都内置了迭代器
+    // 可以使用for of遍历的都有迭代器
+
+    // 对象obj一般是不支持迭代器的，但是可以通过Symbol.iterator来实现（在console中打印支持迭代器的类型，展开原型上就有Symbol.iterator）
+    // 在添加Symbol.iterator后，可以使用for of遍历。不过我们需要让这个对象，尽可能地像一个数组。
+    // 这样做之后就相当于是用户自定义迭代器
+    const objErr = {
+      0: 'a',
+      1: 'b',
+      2: 'c',
+    }
+
+    for (let item of objErr) {
+      console.log(item) // objErr is not iterable
+    }
+
+    const obj = {
+      0: 'a',
+      1: 'b',
+      2: 'c',
+      length: 3,
+      [Symbol.iterator]: Array.prototype[Symbol.iterator]
+    }
+
+    for (let item of obj) {
+      console.log(item) // a b c
+    }
+
+    // 也可以用Symbol.iterator上的next方法来输出
+    const it = obj[Symbol.iterator]()
+    console.log(it.next()) // {value: "a", done: false}
+    console.log(it.next()) // {value: "b", done: false}
+    console.log(it.next()) // {value: "c", done: false}
+    console.log(it.next()) // {value: undefined, done: true}
+  </script>
+</body>
+</html>
