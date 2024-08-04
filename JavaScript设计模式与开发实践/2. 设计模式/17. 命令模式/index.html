@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 命令模式
+    // 接受类
+    class Receiver {
+      execute() {
+        console.log('执行')
+      }
+    }
+
+    // 命令类
+    class Command {
+      constructor(receiver) {
+        this.receiver = receiver
+      }
+
+      execute() {
+        console.log('触发命令')
+        this.receiver.execute()
+      }
+    }
+
+    // 发布类
+    class Invoker {
+      constructor(command) {
+        this.command = command
+      }
+
+      execute() {
+        console.log('开始')
+        this.command.execute()
+      }
+    }
+
+    // 实例化
+    const receiver = new Receiver()
+    const order = new Command(receiver)
+    const client = new Invoker(order)
+
+    client.execute()
+  </script>
+</body>
+</html>
