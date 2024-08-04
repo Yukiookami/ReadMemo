@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // ES6之前的模块化开发 - 闭包
+    const obj = (function () {
+      var count = 0
+      return {
+        getCount: function () {
+          return count
+        },
+        increment: function () {
+          count++
+        }
+      }
+    })();
+
+    console.log(obj) // {getCount: ƒ, increment: ƒ} 没有count属性
+  </script>`
+</body>
+</html>
