@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 组合模式应用
+    // 场景：文件夹和文件的关系
+
+    // 文件夹
+    const Folder = function (folder) {
+      this.folder = folder
+      this.list = [] // 保存子文件或者文件
+    }
+
+    Folder.prototype.add = function (file) {
+      this.list.push(file)
+    }
+
+    Folder.prototype.scan = function () {
+      console.log('开始扫描文件夹：' + this.folder)
+      this.list.forEach(file => {
+        file.scan()
+      })
+    }
+
+    // 文件
+    const File = function (file) {
+      this.file = file
+    }
+
+    File.prototype.scan = function () {
+      console.log('开始扫描文件：' + this.file)
+    }
+
+    // 根文件夹
+    let rooteFolder = new Folder('root')
+    // 子文件夹
+    let htmlFolder = new Folder('html')
+    let jsFolder = new Folder('js')
+    let cssFolder = new Folder('css')
+
+    // 文件
+    let html4 = new File('html4')
+    let html5 = new File('html5')
+    let css2 = new File('css2')
+    let css3 = new File('css3')
+    let es5 = new File('es5')
+    let es6 = new File('es6')
+
+    rooteFolder.add(htmlFolder)
+    rooteFolder.add(jsFolder)
+    rooteFolder.add(cssFolder)
+
+    // 没有文件的时候扫描
+    rooteFolder.scan() 
+    // 开始扫描文件夹：root
+    // 开始扫描文件夹：html
+    // 开始扫描文件夹：js
+    // 开始扫描文件夹：css
+
+    htmlFolder.add(html4)
+    htmlFolder.add(html5)
+    jsFolder.add(es5)
+    jsFolder.add(es6)
+    cssFolder.add(css2)
+    cssFolder.add(css3)
+
+    // 再扫描
+    rooteFolder.scan() 
+  </script>
+</body>
+</html>
