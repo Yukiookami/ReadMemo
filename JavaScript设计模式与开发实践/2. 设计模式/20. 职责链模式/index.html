@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" id="username">
+  <button id="submit">注册</button>
+
+  <script>
+    // 职责链模式
+    // 场景：表单验证
+
+    // 验证规则
+    const rules = {
+      username: [{
+          strategy: 'isNonEmpty',
+          errorMsg: '用户名不能为空'
+        },
+        {
+          strategy: 'minLength:6',
+          errorMsg: '用户名长度不能小于6位'
+        },
+        {
+          strategy: 'isNumber',
+          errorMsg: '用户名必须是数字'
+        }
+      ]
+    }
+
+    const checkEmpty = (value, errorMsg) => {
+      if (value === '') {
+        console.log(errorMsg)
+        return errorMsg
+      } else {
+        return "next"
+      }
+    }
+
+    const checkLength = (value, length, errorMsg) => {
+      if (value.length < length) {
+        console.log(errorMsg)
+        return errorMsg
+      } else {
+        return "next"
+      }
+    }
+
+    const checkNumber = (value, errorMsg) => {
+      if (!/^\d+$/.test(value)) {
+        console.log(errorMsg)
+        return errorMsg
+      } else {
+        return "next"
+      }
+    }
+
+    // 链式调用
+    class Chain {
+      constructor(fn) {
+        this.checkRule = fn
+        this.nextRule = null
+      }
+
+      addRule(nextRule) {
+        this.nextRule = nextRule
+      }
+
+      check() {
+        this.checkRule() === "next" && this.nextRule && this.nextRule.check()
+      }
+    }
+
+    submit.onclick = function () {
+      const username = document.getElementById('username').value
+      const chain = new Chain(() => checkEmpty(username, '用户名不能为空'))
+      const checkLengthChain = new Chain(() => checkLength(username, 6, '用户名长度不能小于6位'))
+      const checkNumberChain = new Chain(() => checkNumber(username, '用户名必须是数字'))
+
+      chain.addRule(checkLengthChain)
+      checkLengthChain.addRule(checkNumberChain)
+      checkNumberChain.addRule({
+        check() {
+          console.log('验证通过')
+        }
+      })
+
+      chain.check()
+    }
+  </script>
+</body>
+
+</html>
