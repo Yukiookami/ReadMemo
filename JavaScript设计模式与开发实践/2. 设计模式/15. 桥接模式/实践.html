@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 场景：模态框的弹出动画不同
+    // modal
+    // message
+    // toast
+
+    // bounce
+    // slide
+    // rotate
+    // 实现动画
+    const Aniations = {
+      bounce: {
+        show: (ele) => {
+          console.log(ele, "弹跳显示")
+        },
+        hide: (ele) => {
+          console.log(ele, "弹跳隐藏")
+        }
+      },
+      slide: {
+        show: (ele) => {
+          console.log(ele, "滑动显示")
+        },
+        hide: (ele) => {
+          console.log(ele, "滑动隐藏")
+        }
+      },
+      rotate: {
+        show: (ele) => {
+          console.log(ele, "旋转显示")
+        },
+        hide: (ele) => {
+          console.log(ele, "旋转隐藏")
+        }
+      }
+    }
+
+    // 架桥
+    function Toast (ele, animation) {
+      this.ele = ele
+      this.animation = animation
+    }
+
+    Toast.prototype.show = function () {
+      this.animation.show(this.ele)
+    }
+
+    Toast.prototype.hide = function () {
+      this.animation.hide(this.ele)
+    }
+
+    // 上桥
+    const toast = new Toast("toast", Aniations.bounce)
+    toast.show()
+    setTimeout(() => {
+      toast.hide()
+    }, 2000)
+
+    const toast2 = new Toast("toast2", Aniations.slide)
+    toast2.show()
+    setTimeout(() => {
+      toast2.hide()
+    }, 2000)
+
+    const toast3 = new Toast("toast3", Aniations.rotate)
+    toast3.show()
+    setTimeout(() => {
+      toast3.hide()
+    }, 2000)
+  </script>
+</body>
+</html>

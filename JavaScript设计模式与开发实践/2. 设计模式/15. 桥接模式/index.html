@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 桥接模式
+    // 假如同一个车企，不同的车型搭配不同的发动机
+    // 平台
+    function Aodi1 (engine) {
+      this.engine = engine
+    }
+
+    function Aodi2 (engine) {
+      this.engine = engine
+    }
+
+    Aodi1.prototype.platform = function () {
+      console.log('Aodi1 平台')
+    }
+
+    // 通过loadEngine桥接
+    Aodi1.prototype.loadEngine = function () {
+      this.engine.run()
+    }
+
+    Aodi2.prototype.platform = function () {
+      console.log('Aodi2 平台')
+    }
+
+    // 通过loadEngine桥接
+    Aodi2.prototype.loadEngine = function () {
+      this.engine.run()
+    }
+
+    function V6 () {
+      this.run = function () {
+        console.log('V6 发动机')
+      }
+    }
+
+    function V8 () {
+      this.run = function () {
+        console.log('V8 发动机')
+      }
+    }
+
+    let aodi1 = new Aodi1(new V6())
+    aodi1.loadEngine()
+
+    let aodi2 = new Aodi2(new V8())
+    aodi2.loadEngine()
+  </script>
+</body>
+</html>
