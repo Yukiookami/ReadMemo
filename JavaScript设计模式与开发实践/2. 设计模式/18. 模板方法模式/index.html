@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 模板方法模式
+    // 父类
+    const Container = function (params) {
+      const F = function () {}
+  
+      F.prototype.init = function () {
+        const list = this.getData()
+        this.render(list)
+      }
+  
+      F.prototype.getData = params.getData || function () {
+        throw new Error('子类必须重写该方法')
+      }
+  
+      F.prototype.render = function (list) {
+        console.log('渲染数据', list)
+      }
+
+      return F
+    }
+
+    // 使用模板
+    const News = new Container({
+      getData: function () {
+        return ['新闻1', '新闻2', '新闻3']
+      }
+    })
+
+    const news = new News()
+
+    news.init()
+  </script>
+</body>
+</html>
